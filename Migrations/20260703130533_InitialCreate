@@ -1,0 +1,327 @@
+using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace ClinicAdminApp.Migrations
+{
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Dokters",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NamaDokter = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Spesialis = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NoSTR = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NoTelepon = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    JadwalPraktek = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dokters", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Obats",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    KodeObat = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NamaObat = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Kategori = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Satuan = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Harga = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Stok = table.Column<int>(type: "int", nullable: false),
+                    TanggalExpired = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Obats", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Pasiens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoRM = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NamaPasien = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    JenisKelamin = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TanggalLahir = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Alamat = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NoTelepon = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pasiens", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Polis",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    KodePoli = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NamaPoli = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Lokasi = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Keterangan = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Polis", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Pendaftarans",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoPendaftaran = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TanggalBerobat = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Keluhan = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PasienId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    DokterId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PoliId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pendaftarans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pendaftarans_Dokters_DokterId",
+                        column: x => x.DokterId,
+                        principalTable: "Dokters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pendaftarans_Pasiens_PasienId",
+                        column: x => x.PasienId,
+                        principalTable: "Pasiens",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pendaftarans_Polis_PoliId",
+                        column: x => x.PoliId,
+                        principalTable: "Polis",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Pemeriksaans",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PendaftaranId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    TekananDarah = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SuhuTubuh = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    BeratBadan = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TinggiBadan = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Diagnosa = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Catatan = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TanggalPemeriksaan = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pemeriksaans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pemeriksaans_Pendaftarans_PendaftaranId",
+                        column: x => x.PendaftaranId,
+                        principalTable: "Pendaftarans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Reseps",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NomorResep = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PemeriksaanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    TanggalResep = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    TotalBiaya = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reseps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reseps_Pemeriksaans_PemeriksaanId",
+                        column: x => x.PemeriksaanId,
+                        principalTable: "Pemeriksaans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "DetailReseps",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ResepId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ObatId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Jumlah = table.Column<int>(type: "int", nullable: false),
+                    Harga = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    SubTotal = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetailReseps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetailReseps_Obats_ObatId",
+                        column: x => x.ObatId,
+                        principalTable: "Obats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DetailReseps_Reseps_ResepId",
+                        column: x => x.ResepId,
+                        principalTable: "Reseps",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Pembayarans",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoPembayaran = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ResepId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    BiayaPemeriksaan = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    BiayaObat = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalBayar = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    MetodePembayaran = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TanggalPembayaran = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pembayarans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pembayarans_Reseps_ResepId",
+                        column: x => x.ResepId,
+                        principalTable: "Reseps",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetailReseps_ObatId",
+                table: "DetailReseps",
+                column: "ObatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetailReseps_ResepId",
+                table: "DetailReseps",
+                column: "ResepId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pembayarans_ResepId",
+                table: "Pembayarans",
+                column: "ResepId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pemeriksaans_PendaftaranId",
+                table: "Pemeriksaans",
+                column: "PendaftaranId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pendaftarans_DokterId",
+                table: "Pendaftarans",
+                column: "DokterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pendaftarans_PasienId",
+                table: "Pendaftarans",
+                column: "PasienId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pendaftarans_PoliId",
+                table: "Pendaftarans",
+                column: "PoliId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reseps_PemeriksaanId",
+                table: "Reseps",
+                column: "PemeriksaanId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "DetailReseps");
+
+            migrationBuilder.DropTable(
+                name: "Pembayarans");
+
+            migrationBuilder.DropTable(
+                name: "Obats");
+
+            migrationBuilder.DropTable(
+                name: "Reseps");
+
+            migrationBuilder.DropTable(
+                name: "Pemeriksaans");
+
+            migrationBuilder.DropTable(
+                name: "Pendaftarans");
+
+            migrationBuilder.DropTable(
+                name: "Dokters");
+
+            migrationBuilder.DropTable(
+                name: "Pasiens");
+
+            migrationBuilder.DropTable(
+                name: "Polis");
+        }
+    }
+}
