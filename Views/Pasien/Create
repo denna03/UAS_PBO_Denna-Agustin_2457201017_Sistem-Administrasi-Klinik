@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Pembayaran";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3>Pembayaran</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create"
+                  method="post">
+
+                <div class="mb-3">
+
+                    <label>Resep</label>
+
+                    <select name="resepId"
+                            asp-items="ViewBag.ResepId"
+                            class="form-select">
+
+                        <option value="">
+                            -- Pilih Resep --
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Metode Pembayaran</label>
+
+                    <select name="metode"
+                            asp-items="ViewBag.Metode"
+                            class="form-select">
+                    </select>
+
+                </div>
+
+                <button class="btn btn-success">
+
+                    Simpan
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Kembali
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
