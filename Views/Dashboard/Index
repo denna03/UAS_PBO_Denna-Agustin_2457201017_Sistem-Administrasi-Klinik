@@ -1,0 +1,196 @@
+@model ClinicAdminApp.Models.ViewModels.DashboardChartViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">
+        Dashboard Sistem Administrasi Klinik
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Total Dokter</h6>
+                            <h2>@Model.Statistik.TotalDokter</h2>
+                        </div>
+                        <i class="bi bi-person-badge-fill display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Total Pasien</h6>
+                            <h2>@Model.Statistik.TotalPasien</h2>
+                        </div>
+                        <i class="bi bi-people-fill display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-dark shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Total Poli</h6>
+                            <h2>@Model.Statistik.TotalPoli</h2>
+                        </div>
+                        <i class="bi bi-hospital-fill display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Total Obat</h6>
+                            <h2>@Model.Statistik.TotalObat</h2>
+                        </div>
+                        <i class="bi bi-capsule-pill display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Pendaftaran</h6>
+                            <h2>@Model.Statistik.TotalPendaftaran</h2>
+                        </div>
+                        <i class="bi bi-journal-medical display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Pemeriksaan</h6>
+                            <h2>@Model.Statistik.TotalPemeriksaan</h2>
+                        </div>
+                        <i class="bi bi-clipboard2-pulse-fill display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Resep</h6>
+                            <h2>@Model.Statistik.TotalResep</h2>
+                        </div>
+                        <i class="bi bi-file-earmark-medical-fill display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Pembayaran</h6>
+                            <h2>@Model.Statistik.TotalPembayaran</h2>
+                        </div>
+                        <i class="bi bi-cash-stack display-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header">
+                    Grafik Jumlah Pasien
+                </div>
+                <div class="card-body">
+                    <canvas id="pasienChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header">
+                    Grafik Pendapatan Klinik
+                </div>
+                <div class="card-body">
+                    <canvas id="pendapatanChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+
+<script>
+
+const bulan = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Bulan));
+const pasien = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.JumlahPasien));
+const pendapatan = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Pendapatan));
+
+new Chart(document.getElementById('pasienChart'), {
+    type: 'bar',
+    data: {
+        labels: bulan,
+        datasets: [{
+            label: 'Jumlah Pasien',
+            data: pasien,
+            borderWidth: 1
+        }]
+    }
+});
+
+new Chart(document.getElementById('pendapatanChart'), {
+    type: 'line',
+    data: {
+        labels: bulan,
+        datasets: [{
+            label: 'Pendapatan',
+            data: pendapatan,
+            borderWidth: 2,
+            fill: false
+        }]
+    }
+});
+
+</script>
+
+}
