@@ -1,0 +1,60 @@
+@model ClinicAdminApp.Models.Obat
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+            <h3>Hapus Data Obat</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+                Apakah Anda yakin ingin menghapus data obat ini?
+            </div>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Kode Obat</th>
+                    <td>@Model.KodeObat</td>
+                </tr>
+
+                <tr>
+                    <th>Nama Obat</th>
+                    <td>@Model.NamaObat</td>
+                </tr>
+
+                <tr>
+                    <th>Kategori</th>
+                    <td>@Model.Kategori</td>
+                </tr>
+
+                <tr>
+                    <th>Stok</th>
+                    <td>@Model.Stok</td>
+                </tr>
+
+            </table>
+
+            <form asp-action="Delete" method="post">
+
+                <input type="hidden" asp-for="Id"/>
+
+                <button class="btn btn-danger">
+                    Hapus
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Batal
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
