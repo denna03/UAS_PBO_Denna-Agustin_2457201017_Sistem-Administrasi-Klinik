@@ -1,0 +1,107 @@
+@model ClinicAdminApp.Models.Pendaftaran
+
+@{
+    ViewData["Title"] = "Pendaftaran Pasien";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3>Edit Pendaftaran Pasien</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="TanggalBerobat"></label>
+                        <input asp-for="TanggalBerobat" type="date" class="form-control" />
+                        <span asp-validation-for="TanggalBerobat" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Status</label>
+                        <input asp-for="Status" class="form-control" readonly />
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Pasien</label>
+
+                    <select asp-for="PasienId" asp-items="ViewBag.PasienId" class="form-select">
+
+                        <option value="">-- Pilih Pasien --</option>
+
+                    </select>
+
+                    <span asp-validation-for="PasienId" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Dokter</label>
+
+                    <select asp-for="DokterId" asp-items="ViewBag.DokterId" class="form-select">
+
+                        <option value="">-- Pilih Dokter --</option>
+
+                    </select>
+
+                    <span asp-validation-for="DokterId" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Poli</label>
+
+                    <select asp-for="PoliId" asp-items="ViewBag.PoliId" class="form-select">
+
+                        <option value="">-- Pilih Poli --</option>
+
+                    </select>
+
+                    <span asp-validation-for="PoliId" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Keluhan"></label>
+
+                    <textarea asp-for="Keluhan" class="form-control" rows="4"></textarea>
+
+                    <span asp-validation-for="Keluhan" class="text-danger"></span>
+
+                </div>
+                <button class="btn btn-warning">
+                    Update
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+            <input type="hidden" asp-for="Id" />
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
