@@ -1,0 +1,117 @@
+@model ClinicAdminApp.Models.Pemeriksaan
+
+@{
+    ViewData["Title"] = "Edit Pemeriksaan";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-warning">
+
+            <h3>Edit Pemeriksaan Pasien</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post">
+
+                <input type="hidden" asp-for="Id"/>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+
+                    <label>Nomor Registrasi</label>
+
+                    <select asp-for="PendaftaranId"
+                            asp-items="ViewBag.PendaftaranId"
+                            class="form-select">
+                    </select>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="TekananDarah"></label>
+
+                        <input asp-for="TekananDarah"
+                               class="form-control"/>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="SuhuTubuh"></label>
+
+                        <input asp-for="SuhuTubuh"
+                               class="form-control"/>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="BeratBadan"></label>
+
+                        <input asp-for="BeratBadan"
+                               class="form-control"/>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="TinggiBadan"></label>
+
+                        <input asp-for="TinggiBadan"
+                               class="form-control"/>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Diagnosa"></label>
+
+                    <textarea asp-for="Diagnosa"
+                              class="form-control"></textarea>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Catatan"></label>
+
+                    <textarea asp-for="Catatan"
+                              class="form-control"></textarea>
+
+                </div>
+
+                <button class="btn btn-warning">
+                    Update
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
