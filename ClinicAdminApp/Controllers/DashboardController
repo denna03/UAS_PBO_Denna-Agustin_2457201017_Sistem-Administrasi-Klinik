@@ -1,0 +1,62 @@
+using ClinicAdminApp.Data;
+using ClinicAdminApp.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ClinicAdminApp.Controllers
+{
+    public class DashboardController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public DashboardController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            DashboardChartViewModel model = new DashboardChartViewModel();
+
+            model.Statistik = new DashboardViewModel
+            {
+                TotalDokter = _context.Dokters.Count(),
+                TotalPasien = _context.Pasiens.Count(),
+                TotalPoli = _context.Polis.Count(),
+                TotalObat = _context.Obats.Count(),
+                TotalPendaftaran = _context.Pendaftarans.Count(),
+                TotalPemeriksaan = _context.Pemeriksaans.Count(),
+                TotalResep = _context.Reseps.Count(),
+                TotalPembayaran = _context.Pembayarans.Count()
+            };
+
+            model.Bulan = new List<string>
+    {
+        "Jan","Feb","Mar","Apr","Mei","Jun",
+        "Jul","Agu","Sep","Okt","Nov","Des"
+    };
+
+            model.JumlahPasien = new List<int>
+    {
+        10,15,18,22,25,20,30,28,35,32,40,45
+    };
+
+            model.Pendapatan = new List<decimal>
+    {
+        2000000,
+        3500000,
+        5000000,
+        4500000,
+        6200000,
+        7100000,
+        8400000,
+        7800000,
+        9200000,
+        11000000,
+        10500000,
+        12500000
+    };
+
+            return View(model);
+        }
+    }
+}
