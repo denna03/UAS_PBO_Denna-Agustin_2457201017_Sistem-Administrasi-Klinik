@@ -1,0 +1,52 @@
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+
+namespace ClinicAdminApp.Reports.Base
+{
+    public abstract class BaseReport : IDocument
+    {
+        public abstract DocumentMetadata GetMetadata();
+
+        public abstract void Compose(IDocumentContainer container);
+
+        protected void Header(PageDescriptor page, string title)
+        {
+            page.Header()
+                .PaddingBottom(15)
+                .Column(column =>
+                {
+                    column.Item()
+                        .AlignCenter()
+                        .Text("KLINIK SEHAT SENTOSA")
+                        .FontSize(22)
+                        .Bold();
+
+                    column.Item()
+                        .AlignCenter()
+                        .Text("Jl. Raya Contoh No. 123");
+
+                    column.Item()
+                        .AlignCenter()
+                        .Text(title)
+                        .FontSize(18)
+                        .Bold();
+
+                    column.Item()
+                        .LineHorizontal(1);
+                });
+        }
+
+        protected void Footer(PageDescriptor page)
+        {
+            page.Footer()
+                .AlignCenter()
+                .Text(x =>
+                {
+                    x.Span("Dicetak : ");
+
+                    x.Span(DateTime.Now.ToString("dd MMMM yyyy HH:mm"));
+                });
+        }
+    }
+}
