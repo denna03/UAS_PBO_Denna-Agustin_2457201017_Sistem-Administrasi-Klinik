@@ -1,0 +1,80 @@
+@model ClinicAdminApp.Models.Resep
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+
+            <h3>Hapus Resep</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+
+                Apakah Anda yakin ingin menghapus resep ini?
+
+            </div>
+
+            <table class="table table-bordered">
+
+                <tr>
+
+                    <th>No Resep</th>
+
+                    <td>@Model.NomorResep</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Pasien</th>
+
+                    <td>
+                        @Model.Pemeriksaan?.Pendaftaran?.Pasien?.NamaPasien
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Total</th>
+
+                    <td>
+
+                        Rp @Model.TotalBiaya.ToString("N0")
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <form asp-action="Delete"
+                  method="post">
+
+                <input type="hidden"
+                       asp-for="Id"/>
+
+                <button class="btn btn-danger">
+
+                    Hapus
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Batal
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+@model IEnumerable<ClinicAdminApp.Models.Resep>
+
+@{
+    ViewData["Title"] = "Data Resep";
+    int no = 1;
+}
+
+<div class="container mt-4">
+
+    <partial name="_Alert"/>
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <h2>Data Resep Obat</h2>
+
+        <a asp-action="Create"
+           class="btn btn-primary">
+
+            Buat Resep
+
+        </a>
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>No</th>
+
+                <th>No Resep</th>
+
+                <th>Pasien</th>
+
+                <th>Tanggal</th>
+
+                <th>Total</th>
+
+                <th width="120">
+                    Aksi
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        @if(Model.Any())
+        {
+            @foreach(var item in Model)
+            {
+                <tr>
+
+                    <td>@no</td>
+
+                    <td>@item.NomorResep</td>
+
+                    <td>
+                        @item.Pemeriksaan?.Pendaftaran?.Pasien?.NamaPasien
+                    </td>
+
+                    <td>
+                        @item.TanggalResep.ToString("dd-MM-yyyy")
+                    </td>
+
+                    <td>
+                        Rp @item.TotalBiaya.ToString("N0")
+                    </td>
+
+                    <td>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@item.Id"
+                           class="btn btn-danger btn-sm">
+
+                            Hapus
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                no++;
+            }
+        }
+
+        </tbody>
+
+    </table>
+
+</div>
