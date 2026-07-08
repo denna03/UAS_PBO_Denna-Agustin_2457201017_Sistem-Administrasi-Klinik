@@ -1,0 +1,13 @@
+namespace ClinicAdminApp.Models.ViewModels
+{
+    public class DashboardChartViewModel
+    {
+        public DashboardViewModel Statistik { get; set; } = new();
+
+        public List<string> Bulan { get; set; } = new();
+
+        public List<int> JumlahPasien { get; set; } = new();
+
+        public List<decimal> Pendapatan { get; set; } = new();
+    }
+}
