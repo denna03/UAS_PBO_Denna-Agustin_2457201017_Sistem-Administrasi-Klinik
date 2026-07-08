@@ -1,0 +1,91 @@
+@model ClinicAdminApp.Models.ViewModels.ResepViewModel
+
+@{
+    ViewData["Title"] = "Buat Resep";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3>Buat Resep Obat</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create"
+                  method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger">
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Pemeriksaan</label>
+
+                    <select asp-for="PemeriksaanId"
+                            asp-items="ViewBag.PemeriksaanId"
+                            class="form-select">
+
+                        <option value="">
+                            -- Pilih Pemeriksaan --
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Obat</label>
+
+                    <select asp-for="ObatId"
+                            asp-items="ViewBag.ObatId"
+                            class="form-select">
+
+                        <option value="">
+                            -- Pilih Obat --
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Jumlah"></label>
+
+                    <input asp-for="Jumlah"
+                           class="form-control"/>
+
+                </div>
+
+                <button class="btn btn-success">
+
+                    Simpan
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Kembali
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}
