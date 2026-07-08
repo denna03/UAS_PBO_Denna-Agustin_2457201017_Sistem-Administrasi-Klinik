@@ -1,0 +1,84 @@
+@model ClinicAdminApp.Models.Obat
+
+@{
+    ViewData["Title"] = "Tambah Obat";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3>Tambah Data Obat</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="KodeObat"></label>
+                    <input asp-for="KodeObat" class="form-control"/>
+                    <span asp-validation-for="KodeObat" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NamaObat"></label>
+                    <input asp-for="NamaObat" class="form-control"/>
+                    <span asp-validation-for="NamaObat" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Kategori"></label>
+                    <input asp-for="Kategori" class="form-control"/>
+                    <span asp-validation-for="Kategori" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Satuan"></label>
+                    <input asp-for="Satuan" class="form-control"/>
+                    <span asp-validation-for="Satuan" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Harga"></label>
+                    <input asp-for="Harga" class="form-control"/>
+                    <span asp-validation-for="Harga" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Stok"></label>
+                    <input asp-for="Stok" class="form-control"/>
+                    <span asp-validation-for="Stok" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TanggalExpired"></label>
+                    <input asp-for="TanggalExpired"
+                           type="date"
+                           class="form-control"/>
+                    <span asp-validation-for="TanggalExpired" class="text-danger"></span>
+                </div>
+
+                <button class="btn btn-success">
+                    Simpan
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
