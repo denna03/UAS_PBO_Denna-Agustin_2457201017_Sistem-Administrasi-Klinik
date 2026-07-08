@@ -1,0 +1,42 @@
+using Microsoft.EntityFrameworkCore;
+using ClinicAdminApp.Models;
+
+
+namespace ClinicAdminApp.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(
+            DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+
+        }
+
+        public DbSet<Dokter> Dokters { get; set; }
+        public DbSet<Pasien> Pasiens { get; set; }
+        public DbSet<Poli> Polis { get; set; }
+        public DbSet<Obat> Obats { get; set; }
+        public DbSet<Pendaftaran> Pendaftarans { get; set; }
+        public DbSet<Pemeriksaan> Pemeriksaans { get; set; }
+        public DbSet<Resep> Reseps { get; set; }
+
+        public DbSet<DetailResep> DetailReseps { get; set; }
+        public DbSet<Pembayaran> Pembayarans { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<DetailResep>()
+                .HasOne(x => x.Resep)
+                .WithMany(x => x.DetailReseps)
+                .HasForeignKey(x => x.ResepId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DetailResep>()
+                .HasOne(x => x.Obat)
+                .WithMany()
+                .HasForeignKey(x => x.ObatId);
+        }
+    }
+}
