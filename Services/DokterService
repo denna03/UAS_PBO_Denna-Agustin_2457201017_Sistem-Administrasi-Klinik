@@ -1,0 +1,70 @@
+using ClinicAdminApp.Data;
+using ClinicAdminApp.Models;
+
+namespace ClinicAdminApp.Services
+{
+    public class DokterService
+    {
+        private readonly ApplicationDbContext _context;
+
+        public DokterService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // Menampilkan semua data dokter
+        public List<Dokter> GetAll()
+        {
+            return _context.Dokters
+                           .OrderBy(x => x.NamaDokter)
+                           .ToList();
+        }
+
+        // Mengambil data berdasarkan ID
+        public Dokter? GetById(Guid id)
+        {
+            return _context.Dokters.Find(id);
+        }
+
+        // Menambah data dokter
+        public void Create(Dokter dokter)
+        {
+            _context.Dokters.Add(dokter);
+            _context.SaveChanges();
+        }
+
+        // Mengubah data dokter
+        public void Update(Dokter dokter)
+        {
+            _context.Dokters.Update(dokter);
+            _context.SaveChanges();
+        }
+
+        // Menghapus data dokter
+        public void Delete(Guid id)
+        {
+            var dokter = _context.Dokters.Find(id);
+
+            if (dokter != null)
+            {
+                _context.Dokters.Remove(dokter);
+                _context.SaveChanges();
+            }
+        }
+        public List<Dokter> Search(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return GetAll();
+            }
+
+            return _context.Dokters
+                .Where(x =>
+                    x.NamaDokter.Contains(keyword) ||
+                    x.Spesialis.Contains(keyword) ||
+                    x.NoSTR.Contains(keyword))
+                .OrderBy(x => x.NamaDokter)
+                .ToList();
+        }
+    }
+}
