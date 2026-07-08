@@ -1,0 +1,96 @@
+@model ClinicAdminApp.Models.Pembayaran
+
+@{
+    ViewData["Title"] = "Detail Pembayaran";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-info text-white">
+
+            <h3>Detail Pembayaran</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th width="250">Nomor Pembayaran</th>
+                    <td>@Model.NoPembayaran</td>
+                </tr>
+
+                <tr>
+                    <th>Nama Pasien</th>
+                    <td>@Model.Resep?.Pemeriksaan?.Pendaftaran?.Pasien?.NamaPasien</td>
+                </tr>
+
+                <tr>
+                    <th>Nomor Resep</th>
+                    <td>@Model.Resep?.NomorResep</td>
+                </tr>
+
+                <tr>
+                    <th>Tanggal Pembayaran</th>
+                    <td>@Model.TanggalPembayaran.ToString("dd MMMM yyyy HH:mm")</td>
+                </tr>
+
+                <tr>
+                    <th>Biaya Pemeriksaan</th>
+                    <td>Rp @Model.BiayaPemeriksaan.ToString("N0")</td>
+                </tr>
+
+                <tr>
+                    <th>Biaya Obat</th>
+                    <td>Rp @Model.BiayaObat.ToString("N0")</td>
+                </tr>
+
+                <tr class="table-success">
+
+                    <th>Total Bayar</th>
+
+                    <th>Rp @Model.TotalBayar.ToString("N0")</th>
+
+                </tr>
+
+                <tr>
+
+                    <th>Metode Pembayaran</th>
+
+                    <td>@Model.MetodePembayaran</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Status</th>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            @Model.Status
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                Kembali
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

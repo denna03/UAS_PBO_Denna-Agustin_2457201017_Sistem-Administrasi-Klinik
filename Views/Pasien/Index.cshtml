@@ -1,0 +1,106 @@
+@model IEnumerable<ClinicAdminApp.Models.Pembayaran>
+
+@{
+    ViewData["Title"] = "Pembayaran";
+    int no = 1;
+}
+
+<div class="container mt-4">
+
+    <partial name="_Alert" />
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <h2>Pembayaran</h2>
+
+        <a asp-action="Create" class="btn btn-primary">
+
+            Pembayaran Baru
+
+        </a>
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>No</th>
+
+                <th>No Pembayaran</th>
+
+                <th>Pasien</th>
+
+                <th>Total</th>
+
+                <th>Metode</th>
+
+                <th>Status</th>
+
+                <th width="120">
+                    Aksi
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@no</td>
+
+                    <td>@item.NoPembayaran</td>
+
+                    <td>
+                        @item.Resep?.Pemeriksaan?.Pendaftaran?.Pasien?.NamaPasien
+                    </td>
+
+                    <td>
+                        Rp @item.TotalBayar.ToString("N0")
+                    </td>
+
+                    <td>
+                        @item.MetodePembayaran
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            @item.Status
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+
+                            Hapus
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                no++;
+            }
+
+        </tbody>
+
+    </table>
+    <a asp-action="ExportPdf" class="btn btn-danger">
+
+    Export PDF
+
+</a>
+
+</div>
