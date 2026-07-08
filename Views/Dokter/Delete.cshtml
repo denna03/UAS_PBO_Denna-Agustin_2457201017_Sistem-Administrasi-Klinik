@@ -1,0 +1,68 @@
+@model ClinicAdminApp.Models.Dokter
+
+@{
+    ViewData["Title"] = "Hapus Dokter";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+            <h3>Hapus Data Dokter</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+                <h5>Apakah Anda yakin ingin menghapus data dokter berikut?</h5>
+            </div>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th width="200">Nama Dokter</th>
+                    <td>@Model.NamaDokter</td>
+                </tr>
+
+                <tr>
+                    <th>Spesialis</th>
+                    <td>@Model.Spesialis</td>
+                </tr>
+
+                <tr>
+                    <th>No STR</th>
+                    <td>@Model.NoSTR</td>
+                </tr>
+
+                <tr>
+                    <th>No Telepon</th>
+                    <td>@Model.NoTelepon</td>
+                </tr>
+
+                <tr>
+                    <th>Jadwal Praktek</th>
+                    <td>@Model.JadwalPraktek</td>
+                </tr>
+
+            </table>
+
+            <form asp-action="Delete" method="post">
+
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="btn btn-danger">
+                    Hapus
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Batal
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
